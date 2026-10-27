@@ -1,0 +1,4 @@
+*.log
+*audit*.json
+.DS_Store
+Thumbs.db

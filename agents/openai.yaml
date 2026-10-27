@@ -1,0 +1,7 @@
+interface:
+  display_name: "Windows System Maintenance"
+  short_description: "Audit disk usage and tune Windows startup safely"
+  default_prompt: "Use $windows-system-maintenance to audit this Windows system before making approved cleanup or startup changes."
+
+policy:
+  allow_implicit_invocation: true
