@@ -1,31 +1,38 @@
-# Windows System Maintenance
+# Windows 系统维护
 
-A Codex skill and audit toolkit for evidence-based Windows storage cleanup and startup optimization.
+[English](README.en.md) | 中文 | [项目主页](https://vyvyc.github.io/windows-system-maintenance/)
 
-中文说明见 [README.zh-CN.md](README.zh-CN.md)。运行时按用户语言选择指令：英文使用 `SKILL.md`，中文使用 `SKILL.zh-CN.md`。
+用于基于证据的 Windows 磁盘清理与启动项优化。所有修改流程都先执行只读检查，生成带编号的安全清单，等待用户一次 `确认` 或指定项目编号后批量执行。
 
-The skill is intentionally audit-first:
+## 核心原则
 
-- Read-only by default when the user asks to inspect.
-- Mutating workflows have one review gate: present a numbered safety-checked list, wait for one `确认` or explicit item IDs, then execute the entire approved batch without item-by-item re-confirmation.
-- Exact, explicitly named targets for cleanup or service changes.
-- Configuration and user data are preserved when software is only being paused.
-- Startup changes distinguish `Manual` from `Disabled`.
-- Protected Windows stores are identified instead of being deleted blindly.
-- Vendor uninstall verification includes product state, services, and residual paths.
+- 用户只要求检查时，保持只读。
+- 删除、停用或卸载前，先展示准确目标、影响、风险和状态。
+- 一次授权即可执行整批项目，不逐项重复询问。
+- 用户选择“暂停但以后还要用”时，优先改为 `Manual`，不卸载、不删除配置。
+- 不手动删除 `WinSxS`、`Windows\Installer`、分页文件等受保护系统数据。
+- 软件卸载必须验证产品状态、服务与残留路径。
 
-## Included tools
+## 语言切换
+
+- 中文请求或“中文模式”：使用 [SKILL.zh-CN.md](SKILL.zh-CN.md)。
+- 英文请求：使用 [SKILL.md](SKILL.md)。
+- 中文策略参考：
+  - [磁盘清理策略](references/cleanup-policy.zh-CN.md)
+  - [启动项优化策略](references/startup-policy.zh-CN.md)
+  - [审阅闸门](references/review-gate.zh-CN.md)
+
+## 主要工具
 
 ### `scripts/audit-windows.ps1`
 
-Reports fixed-volume usage, top-level directory sizes, known cache paths, protected maintenance paths, and large files.
-Review candidates receive stable IDs within the generated JSON report and are classified as ready or protected.
+只读检查卷容量、顶层目录、已知缓存、受保护目录和大型文件。候选项目会获得审阅编号。
 
 ```powershell
 pwsh -NoProfile -File scripts/audit-windows.ps1 -OutputPath "$env:TEMP\windows-maintenance-audit.json"
 ```
 
-Limit a scan to selected drives:
+只扫描指定盘：
 
 ```powershell
 pwsh -NoProfile -File scripts/audit-windows.ps1 -DriveLetters D,E -LargeFileGB 2
@@ -33,8 +40,7 @@ pwsh -NoProfile -File scripts/audit-windows.ps1 -DriveLetters D,E -LargeFileGB 2
 
 ### `scripts/audit-startup.ps1`
 
-Reports Run/RunOnce entries, StartupApproved state, Startup folder items, logon/boot scheduled tasks, automatic third-party services, missing executable targets, and current process memory where measurable.
-Each entry receives a review ID for a single-confirmation batch or partial selection.
+检查 Run/RunOnce、StartupApproved、启动文件夹、登录/开机计划任务、第三方自动服务、失效路径和进程内存。每个条目都带审阅编号。
 
 ```powershell
 pwsh -NoProfile -File scripts/audit-startup.ps1 -OutputPath "$env:TEMP\startup-audit.json"
@@ -42,26 +48,26 @@ pwsh -NoProfile -File scripts/audit-startup.ps1 -OutputPath "$env:TEMP\startup-a
 
 ### `scripts/set-service-mode.ps1`
 
-Changes a service between Automatic, Manual, and Disabled while optionally stopping it. Use `Manual` when the application should remain available for later use.
+在 Automatic、Manual、Disabled 之间调整服务启动类型，并可同时停止服务。
 
 ```powershell
 pwsh -NoProfile -File scripts/set-service-mode.ps1 -ServiceName MySQL80 -StartMode Manual -StopNow
 ```
 
-## Installation
+## 安装
 
-Copy this directory into the Codex skills directory:
+把整个目录放入：
 
 ```text
 %CODEX_HOME%\skills\windows-system-maintenance
 ```
 
-If `CODEX_HOME` is unset, use `%USERPROFILE%\.codex\skills`.
+如果没有设置 `CODEX_HOME`，使用 `%USERPROFILE%\.codex\skills`。
 
-## Safety
+## 安全原则
 
-The audit scripts are read-only. Cleanup execution and service changes always require explicit user intent and appropriate administrative rights.
+审计脚本只读。清理、服务调整和卸载均只处理用户明确批准的目标，并保留配置与可恢复信息。
 
-## License
+## 许可证
 
 MIT

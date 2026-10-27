@@ -1,7 +1,7 @@
 interface:
-  display_name: "Windows System Maintenance"
-  short_description: "Audit disk usage and tune Windows startup safely"
-  default_prompt: "Use $windows-system-maintenance to audit this Windows system before making approved cleanup or startup changes."
+  display_name: "Windows 系统维护"
+  short_description: "安全审计 Windows 磁盘、启动项并生成一次确认清单"
+  default_prompt: "使用 $windows-system-maintenance 先只读检查，再生成带编号的审阅清单等待一次确认。"
 
 policy:
   allow_implicit_invocation: true

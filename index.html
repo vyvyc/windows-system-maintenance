@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Windows 系统维护 Codex Skill：磁盘审计、启动项分析、安全清理与服务管理。">
+  <meta name="theme-color" content="#f4f7fb">
+  <title>Windows 系统维护 | Codex Skill</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f6fed'/%3E%3Cpath d='M16 34h32M20 24h24M24 44h16' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="Windows System Maintenance home">
+      <span class="brand-mark" aria-hidden="true">WS</span>
+      <span data-i18n="brand">Windows 系统维护</span>
+    </a>
+    <div class="header-actions">
+      <a class="github-link" href="https://github.com/vyvyc/windows-system-maintenance" target="_blank" rel="noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .7a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.2.8-.5v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.7 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.9 1.2 1.9 1.2 3.2 0 4.4-2.7 5.4-5.4 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.6.8.5A11.5 11.5 0 0 0 12 .7Z"/></svg>
+        <span data-i18n="github">GitHub</span>
+      </a>
+      <button id="languageToggle" class="language-toggle" type="button" aria-label="Switch to English">EN</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="eyebrow">CODEX SKILL · WINDOWS 运维</p>
+        <h1 data-i18n="heroTitle">先检查，再决定。<br><span>一次确认后执行。</span></h1>
+        <p class="lead" data-i18n="heroLead">面向 Windows 磁盘清理、启动项分析和软件卸载的审计优先工作流。先把事实和风险讲清楚，再由用户做唯一一次执行决定。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#install" data-i18n="quickStartBtn">获取安装指令</a>
+          <a class="button secondary" href="https://github.com/vyvyc/windows-system-maintenance" target="_blank" rel="noreferrer" data-i18n="viewRepo">查看 GitHub 仓库</a>
+          <a class="button secondary" href="SKILL.zh-CN.md" data-i18n="readSkill" data-i18n-href="skillHref">阅读 Skill 说明</a>
+        </div>
+        <div class="badges" aria-label="Key properties">
+          <span data-i18n="badgeReadOnly">只读审计</span>
+          <span data-i18n="badgeConfirm">一次确认</span>
+          <span data-i18n="badgeBilingual">中英双语</span>
+        </div>
+      </div>
+      <aside class="terminal-card" aria-label="Workflow preview">
+        <div class="terminal-top">
+          <span></span><span></span><span></span>
+          <strong>PowerShell</strong>
+        </div>
+        <pre><code><span class="muted">PS&gt;</span> audit-windows.ps1
+
+ReviewSetId  A6F2-91C0
+C01  Ready       NVIDIA cache       4.34 GB
+C02  Ready       Browser cache      2.06 GB
+C03  Ready       npm cache          0.96 GB
+P01  Protected   Windows Installer  3.88 GB
+
+<span class="accent">等待用户确认</span>
+<span class="cursor">▋</span></code></pre>
+      </aside>
+    </section>
+
+    <section id="install" class="install-section">
+      <div class="section-heading install-heading">
+        <p class="eyebrow" data-i18n="installEyebrow">一键安装与调用</p>
+        <h2 data-i18n="installTitle">复制指令，直接发送给你的 Agent</h2>
+        <p data-i18n="installLead">任选一个工具。指令会要求它安装这份 Skill，先执行只读检查，生成编号清单，并在你回复一次“确认”后再执行。</p>
+      </div>
+
+      <div class="install-grid">
+        <article class="copy-card">
+          <div class="copy-card-head">
+            <div>
+              <span class="tool-tag">CODEX</span>
+              <h3 data-i18n="codexTitle">Codex 安装并调用</h3>
+            </div>
+            <button class="copy-button" type="button" data-copy-target="codexPrompt" data-i18n="copyButton">复制指令</button>
+          </div>
+          <pre><code id="codexPrompt" data-i18n-code="codexPrompt"></code></pre>
+        </article>
+
+        <article class="copy-card">
+          <div class="copy-card-head">
+            <div>
+              <span class="tool-tag">DEEPSEEK HARNESS</span>
+              <h3 data-i18n="deepseekTitle">DeepSeekHarness / 通用 Agent</h3>
+            </div>
+            <button class="copy-button" type="button" data-copy-target="deepseekPrompt" data-i18n="copyButton">复制指令</button>
+          </div>
+          <pre><code id="deepseekPrompt" data-i18n-code="deepseekPrompt"></code></pre>
+        </article>
+
+        <article class="copy-card wide">
+          <div class="copy-card-head">
+            <div>
+              <span class="tool-tag">POWERSHELL</span>
+              <h3 data-i18n="shellTitle">直接克隆并运行审计</h3>
+            </div>
+            <button class="copy-button" type="button" data-copy-target="shellCommands" data-i18n="copyCommand">复制命令</button>
+          </div>
+          <pre><code id="shellCommands" data-i18n-code="shellCommands"></code></pre>
+        </article>
+      </div>
+      <p class="install-note" data-i18n="installNote">DeepSeekHarness 等工具没有统一的 Skill 安装协议，因此使用自然语言指令最稳妥：让 Agent 读取仓库中的中文规则，再按同一审阅流程执行。</p>
+    </section>
+
+    <section class="metrics" aria-label="Skill capabilities">
+      <article>
+        <strong>01</strong>
+        <h2 data-i18n="metricAuditTitle">全面审计</h2>
+        <p data-i18n="metricAuditText">磁盘、缓存、大文件、启动项、任务和自动服务。</p>
+      </article>
+      <article>
+        <strong>02</strong>
+        <h2 data-i18n="metricSafetyTitle">安全分类</h2>
+        <p data-i18n="metricSafetyText">区分可重建缓存、用户数据、安装介质和受保护系统项。</p>
+      </article>
+      <article>
+        <strong>03</strong>
+        <h2 data-i18n="metricGateTitle">审批闸门</h2>
+        <p data-i18n="metricGateText">生成带编号清单，只等待一次明确执行命令。</p>
+      </article>
+      <article>
+        <strong>04</strong>
+        <h2 data-i18n="metricVerifyTitle">结果验证</h2>
+        <p data-i18n="metricVerifyText">执行后复核空间、路径、服务状态和残留项。</p>
+      </article>
+    </section>
+
+    <section class="section-heading">
+      <p class="eyebrow" data-i18n="workflowEyebrow">工作流程</p>
+      <h2 data-i18n="workflowTitle">系统改动只有一次最终授权</h2>
+      <p data-i18n="workflowLead">审计结果先变成可审阅的计划，避免在没有完整上下文时直接删除或停用。</p>
+    </section>
+
+    <section class="workflow-grid">
+      <article>
+        <span>1</span>
+        <h3 data-i18n="step1Title">只读检索</h3>
+        <p data-i18n="step1Text">收集容量、路径、进程、服务、计划和注册表状态，不修改系统。</p>
+      </article>
+      <article>
+        <span>2</span>
+        <h3 data-i18n="step2Title">安全检查</h3>
+        <p data-i18n="step2Text">识别锁定目标、用户数据、系统保护项和真实可释放空间。</p>
+      </article>
+      <article>
+        <span>3</span>
+        <h3 data-i18n="step3Title">编号审阅</h3>
+        <p data-i18n="step3Text">列出 C01、C02、S01 等候选编号，说明动作、风险与保留项。</p>
+      </article>
+      <article>
+        <span>4</span>
+        <h3 data-i18n="step4Title">一次性确认</h3>
+        <p data-i18n="step4Text">用户回复“确认”或指定编号后批量执行，不再逐项重复追问。</p>
+      </article>
+    </section>
+
+    <section class="section-heading tools-heading">
+      <p class="eyebrow" data-i18n="toolsEyebrow">内置工具</p>
+      <h2 data-i18n="toolsTitle">三个确定性 PowerShell 脚本</h2>
+    </section>
+
+    <section class="tool-list">
+      <article>
+        <div>
+          <span class="tool-tag">DISK</span>
+          <h3>audit-windows.ps1</h3>
+        </div>
+        <p data-i18n="toolDiskText">扫描固定卷、顶层目录、已知缓存、受保护路径和大文件，输出 JSON 审阅报告。</p>
+        <code>pwsh -File scripts/audit-windows.ps1</code>
+      </article>
+      <article>
+        <div>
+          <span class="tool-tag">STARTUP</span>
+          <h3>audit-startup.ps1</h3>
+        </div>
+        <p data-i18n="toolStartupText">汇总 Run、StartupApproved、计划任务、第三方自动服务和失效路径。</p>
+        <code>pwsh -File scripts/audit-startup.ps1</code>
+      </article>
+      <article>
+        <div>
+          <span class="tool-tag">SERVICE</span>
+          <h3>set-service-mode.ps1</h3>
+        </div>
+        <p data-i18n="toolServiceText">在 Automatic、Manual、Disabled 间安全调整服务，并保留软件配置。</p>
+        <code>-ServiceName MySQL80 -StartMode Manual -StopNow</code>
+      </article>
+    </section>
+
+    <section class="safety-panel">
+      <div>
+        <p class="eyebrow" data-i18n="safetyEyebrow">安全边界</p>
+        <h2 data-i18n="safetyTitle">保护系统，也保护你的数据</h2>
+      </div>
+      <p data-i18n="safetyText">不属于受保护项的候选也不会被自动删除。用户数据、虚拟机、录像和安装介质必须先经过明确审阅；`WinSxS`、Windows Installer 等系统修复数据禁止手动清除。</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>Windows System Maintenance</span>
+    <span data-i18n="footer">MIT License · 为 Codex 构建</span>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>
