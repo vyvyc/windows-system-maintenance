@@ -4,6 +4,42 @@
 
 用于基于证据的 Windows 磁盘清理与启动项优化。所有修改流程都先执行只读检查，生成带编号的安全清单，等待用户一次 `确认` 或指定项目编号后批量执行。
 
+## 一键发送给 Agent
+
+### Codex
+
+```text
+请从 https://github.com/vyvyc/windows-system-maintenance 安装 Codex Skill 到 $CODEX_HOME/skills/windows-system-maintenance。
+
+安装后，请使用 $windows-system-maintenance：
+1. 先只读检查本机磁盘和开机启动项。
+2. 执行安全检查，生成带编号的审阅清单。
+3. 说明每项动作、路径、大小、风险和预计影响。
+4. 停止并等待我回复一次“确认”或指定编号，再一次性执行。
+```
+
+### DeepSeekHarness / 通用 Agent
+
+```text
+请把 https://github.com/vyvyc/windows-system-maintenance 作为当前任务可用的 Windows 系统维护 Skill。优先读取 SKILL.zh-CN.md、references/review-gate.zh-CN.md 和对应中文策略文件。
+
+先只读检查本机磁盘与开机启动项，生成带编号的安全清单；说明路径、大小、风险与保留项。然后停止，等待我回复一次“确认”或指定编号后再批量执行，不要逐项重复询问。
+```
+
+### PowerShell
+
+```powershell
+$dest = "$HOME\.codex\skills\windows-system-maintenance"
+if (Test-Path "$dest\.git") {
+  git -C $dest pull --ff-only
+} else {
+  git clone https://github.com/vyvyc/windows-system-maintenance $dest
+}
+pwsh -NoProfile -File "$dest\scripts\audit-windows.ps1"
+```
+
+在线主页提供相同的“一键复制”按钮：[打开主页](https://vyvyc.github.io/windows-system-maintenance/)。
+
 ## 核心原则
 
 - 用户只要求检查时，保持只读。

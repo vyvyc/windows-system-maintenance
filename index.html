@@ -25,6 +25,21 @@
   </header>
 
   <main>
+    <section class="launch-strip" aria-labelledby="launchStripTitle">
+      <div class="launch-strip-copy">
+        <span class="launch-dot" aria-hidden="true"></span>
+        <div>
+          <strong id="launchStripTitle" data-i18n="launchStripTitle">一键发送给 Agent</strong>
+          <span data-i18n="launchStripText">复制现成指令，发给 Codex、DeepSeekHarness 或其他工具。</span>
+        </div>
+      </div>
+      <div class="launch-actions">
+        <button class="launch-copy" type="button" data-copy-target="codexPrompt" data-i18n="launchCodex">复制 Codex 指令</button>
+        <button class="launch-copy" type="button" data-copy-target="deepseekPrompt" data-i18n="launchDeepseek">复制 DeepSeekHarness 指令</button>
+        <button class="launch-copy" type="button" data-copy-target="shellCommands" data-i18n="launchShell">复制 PowerShell</button>
+      </div>
+    </section>
+
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow" data-i18n="eyebrow">CODEX SKILL · WINDOWS 运维</p>

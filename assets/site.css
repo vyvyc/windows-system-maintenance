@@ -126,6 +126,73 @@ main {
   margin: 0 auto;
 }
 
+.launch-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-top: 22px;
+  padding: 13px 14px 13px 18px;
+  border: 1px solid #c9d9f2;
+  border-radius: 15px;
+  background: rgba(235, 242, 255, 0.78);
+  box-shadow: 0 8px 24px rgba(22, 48, 91, 0.06);
+  backdrop-filter: blur(14px);
+}
+
+.launch-strip-copy {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 240px;
+}
+
+.launch-strip-copy div {
+  display: flex;
+  flex-direction: column;
+}
+
+.launch-strip-copy strong {
+  font-size: 0.88rem;
+}
+
+.launch-strip-copy span:last-child {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.launch-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #32b985;
+  box-shadow: 0 0 0 5px rgba(50, 185, 133, 0.13);
+}
+
+.launch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.launch-copy {
+  padding: 8px 10px;
+  border: 1px solid #bfd2ee;
+  border-radius: 9px;
+  color: #274b82;
+  background: rgba(255, 255, 255, 0.7);
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.launch-copy:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .hero {
   display: grid;
   grid-template-columns: 1.12fr 0.88fr;
@@ -587,6 +654,15 @@ footer {
     padding: 11px 12px 11px 14px;
   }
 
+  .launch-strip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .launch-actions {
+    justify-content: flex-start;
+  }
+
   .brand > span:last-child,
   .github-link span {
     display: none;
@@ -687,6 +763,17 @@ footer {
 
   .copy-button {
     border-color: #304562;
+  }
+
+  .launch-strip {
+    border-color: #304562;
+    background: rgba(22, 39, 64, 0.84);
+  }
+
+  .launch-copy {
+    border-color: #304562;
+    color: #c7d7ed;
+    background: #172539;
   }
 
   .safety-panel {

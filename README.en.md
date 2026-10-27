@@ -4,6 +4,42 @@ English | [中文](README.md) | [项目主页](https://vyvyc.github.io/windows-s
 
 A Codex skill and audit toolkit for evidence-based Windows storage cleanup and startup optimization.
 
+## One-click prompts
+
+### Codex
+
+```text
+Install the Codex skill from https://github.com/vyvyc/windows-system-maintenance into $CODEX_HOME/skills/windows-system-maintenance.
+
+Then use $windows-system-maintenance:
+1. Perform a read-only audit of disks and startup items.
+2. Run the safety checks and produce a numbered review list.
+3. Explain each action, path, size, risk, and expected impact.
+4. Stop and wait for one "confirm" reply or explicit IDs, then execute the approved batch.
+```
+
+### DeepSeekHarness / generic agent
+
+```text
+Use https://github.com/vyvyc/windows-system-maintenance as the Windows system maintenance skill for this task. Read SKILL.zh-CN.md, references/review-gate.zh-CN.md, and the corresponding Chinese policy files.
+
+Run a read-only audit of disks and startup items, then produce a numbered safety review with paths, sizes, risks, and preserved items. Stop and wait for one confirmation or explicit IDs before executing the approved batch. Do not ask again for every item.
+```
+
+### PowerShell
+
+```powershell
+$dest = "$HOME\.codex\skills\windows-system-maintenance"
+if (Test-Path "$dest\.git") {
+  git -C $dest pull --ff-only
+} else {
+  git clone https://github.com/vyvyc/windows-system-maintenance $dest
+}
+pwsh -NoProfile -File "$dest\scripts\audit-windows.ps1"
+```
+
+The live homepage has matching one-click copy buttons: [open homepage](https://vyvyc.github.io/windows-system-maintenance/).
+
 The skill is intentionally audit-first:
 
 - Read-only by default when the user asks to inspect.
